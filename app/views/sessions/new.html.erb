@@ -1,0 +1,6 @@
+<h1>Sign in</h1>
+<%= form_with url: sessions_path do |form| %>
+ <%= form.text_field :email, placeholder: "Enter Your Email Or UserID" %><br><br>
+ <%= form.password_field :password, placeholder: "Enter Your Password" %><br><br>
+ <%= form.submit "Sign in" %>
+<% end %>
