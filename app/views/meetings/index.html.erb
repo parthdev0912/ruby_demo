@@ -1,2 +1,29 @@
-<h1>Meetings#index</h1>
-<p>Find me in app/views/meetings/index.html.erb</p>
+<h1>Meeting Dashboard</h1>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Description</th>
+      <th>Starts</th>
+      <th>Complete</th>
+      <th>Meeting With</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.subject %></td>
+        <td><%= meeting.description %></td>
+        <td><%= meeting.starts %></td>
+        <td><%= meeting.complete %></td>
+        <td><%= meeting.metting_with %></td>
+        <td><button>Edit</button></td>
+        <td><button>Delete</button></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br><br>
+<%= button_to "Sign Out", session_path(@current_user), :method => :delete %>
+

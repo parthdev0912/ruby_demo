@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       if user.present?
         token = VerifyUserService.new(user, params[:password]).call
         if token.present?
-          user.update!(token: token)
+          session[:token] = token
           flash[:notice] = 'Sign in successfully !!!'
           redirect_to meetings_path
         else
@@ -24,5 +24,10 @@ class SessionsController < ApplicationController
     rescue => exception
       logger.error exception.message
     end
+  end
+
+  def destroy
+    session[:token] = nil
+    redirect_to root_path, notice: 'Logged out successfully !!'
   end
 end
