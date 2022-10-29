@@ -10,6 +10,7 @@ class MeetingsController < ApplicationController
     begin
       @meeting = Meeting.new(subject: params[:subject], description: params[:description], start_time: params[:start_time], complete: params[:complete], metting_with: params[:metting_with], user: @current_user)
       if @meeting.save!
+        MeetingConfirmationMailer.with(user: @current_user, meeting: @meeting).meeting_confirmation_email.deliver_now
         flash[:notice] = "Meeting Created successfully !!!"
       else
         flash[:alert] = "Something is missing. Meeting was not created please try again..."  
@@ -35,6 +36,7 @@ class MeetingsController < ApplicationController
   def update
     begin
       @meeting.update(meeting_params)
+      MeetingConfirmationMailer.with(user: @current_user, meeting: @meeting).meeting_rescheduled_email.deliver_now
       flash[:notice] = "Meeting updated successfully !!!"
       redirect_to meetings_path
     rescue => exception
@@ -45,6 +47,7 @@ class MeetingsController < ApplicationController
   def destroy
     begin
       @meeting.destroy
+      MeetingConfirmationMailer.with(user: @current_user, meeting: @meeting).meeting_cancellation_email.deliver_now
       flash[:alert] = "Meeting deleted successfully !!!"
       redirect_to meetings_path 
     rescue => exception
