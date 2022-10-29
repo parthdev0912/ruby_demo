@@ -15,15 +15,21 @@
       <tr>
         <td><%= meeting.subject %></td>
         <td><%= meeting.description %></td>
-        <td><%= meeting.starts %></td>
-        <td><%= meeting.complete %></td>
+        <td><%= date_format(meeting.starts) %></td>
+        <td><%= date_format(meeting.complete) %></td>
         <td><%= meeting.metting_with %></td>
-        <td><button>Edit</button></td>
-        <td><button>Delete</button></td>
+        <% if meeting.starts < DateTime.now %>
+          <td><button disabled>Edit</button></td>
+          <td><button disabled>Delete</button></td>
+        <% else %>
+          <td><button><%= link_to "Edit", edit_meeting_path(meeting) %></button></td>
+          <td><%= button_to "Delete", meeting_path(meeting), :method => :delete, data: { turbo_confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br><br>
+<%= button_to "Create Meeting", new_meeting_path, :method => :get %><br>
 <%= button_to "Sign Out", session_path(@current_user), :method => :delete %>
 

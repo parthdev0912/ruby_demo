@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :authenticate_user!
+  helper_method :authenticate_user!, :date_format
 
   def authenticate_user!
     begin
@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
     rescue => exception
       logger.error exception.message
     end
+  end
+
+  def date_format(date)
+    date.strftime("%d / %m / %Y - %H:%M")
   end
 end

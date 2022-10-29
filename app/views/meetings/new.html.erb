@@ -1,0 +1,10 @@
+<h1>Create Meeting</h1>
+<%= form_with url: meetings_path, method: "post" do |form| %>
+ <%= form.text_field :subject, placeholder: "Meeting subject ..." %><br><br>
+ <%= form.text_field :description, placeholder: "Meeting description ..." %><br><br>
+ <%= form.datetime_field :starts %><br><br>
+ <%= form.datetime_field :complete %><br><br>
+ <%= form.text_field :metting_with, placeholder: "Meeting with ..." %><br><br>
+ <%= form.submit "Create" %>
+ <button><%= link_to "Back", root_path %></button>
+<% end %>
