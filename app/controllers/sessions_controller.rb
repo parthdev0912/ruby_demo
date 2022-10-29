@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
     begin
       user = User.find_by(email: params[:email])
       if user.present?
-        data = user&.valid_password?(params[:password])
-        if data.present?
+        token = VerifyUserService.new(user, params[:password]).call
+        if token.present?
+          user.update!(token: token)
           flash[:notice] = 'Sign in successfully !!!'
           redirect_to meetings_path
         else
