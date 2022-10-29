@@ -1,0 +1,10 @@
+<h1>Edit Meeting Details</h1>
+<%= form_with model: @meeting, url: meeting_path(@meeting), method: "patch" do |form| %>
+ <%= form.text_field :subject, placeholder: "Meeting subject ...", value: @meeting.subject %><br><br>
+ <%= form.text_field :description, placeholder: "Meeting description ...", value: @meeting.description %><br><br>
+ <%= form.datetime_field :starts, value: @meeting.starts %><br><br>
+ <%= form.datetime_field :complete, value: @meeting.starts %><br><br>
+ <%= form.text_field :metting_with, placeholder: "Meeting with ...", value: @meeting.metting_with %><br><br>
+ <%= form.submit "Update" %>
+ <button><%= link_to "Back", root_path %></button>
+<% end %>
