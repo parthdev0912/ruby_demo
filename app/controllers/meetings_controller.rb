@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_meeting, only: [:destroy, :edit, :update]
+  before_action :set_meeting, only: [:destroy, :edit, :update, :show]
   
   def new
     @meeting = Meeting.new
@@ -8,7 +8,7 @@ class MeetingsController < ApplicationController
 
   def create
     begin
-      @meeting = Meeting.new(subject: params[:subject], description: params[:description], starts: params[:starts], complete: params[:complete], metting_with: params[:metting_with], user: @current_user)
+      @meeting = Meeting.new(subject: params[:subject], description: params[:description], start_time: params[:start_time], complete: params[:complete], metting_with: params[:metting_with], user: @current_user)
       if @meeting.save!
         flash[:notice] = "Meeting Created successfully !!!"
       else
@@ -29,6 +29,8 @@ class MeetingsController < ApplicationController
   end
 
   def edit; end
+
+  def show; end
 
   def update
     begin
@@ -57,6 +59,6 @@ class MeetingsController < ApplicationController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:subject, :description, :starts, :complete, :metting_with)
+    params.require(:meeting).permit(:subject, :description, :start_time, :complete, :metting_with)
   end
 end

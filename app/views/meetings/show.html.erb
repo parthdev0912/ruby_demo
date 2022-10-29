@@ -1,0 +1,31 @@
+<div class="container mt-5 text-center">
+  <table class="table table-bordered border-primary">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>start_time</th>
+        <th>Complete</th>
+        <th>Meeting With</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @meeting.subject %></td>
+        <td><%= @meeting.description %></td>
+        <td><%= date_format(@meeting.start_time) %></td>
+        <td><%= date_format(@meeting.complete) %></td>
+        <td><%= @meeting.metting_with %></td>
+        <% if @meeting.start_time < DateTime.now %>
+          <td><button disabled class="btn btn-success">Edit</button></td>
+          <td><button disabled class="btn btn-danger">Delete</button></td>
+        <% else %>
+          <td><%= link_to "Edit", edit_meeting_path(@meeting), class: "btn btn-success" %></td>
+          <td><%= button_to "Delete", meeting_path(@meeting), :method => :delete, class: "btn btn-danger", data: { turbo_confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <%= link_to "Back", root_path, class: "btn btn-primary" %>
+</div>

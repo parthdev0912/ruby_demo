@@ -1,35 +1,50 @@
-<h1>Meeting Dashboard</h1>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Subject</th>
-      <th>Description</th>
-      <th>Starts</th>
-      <th>Complete</th>
-      <th>Meeting With</th>
-      <th colspan="2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @meetings.each do |meeting| %>
-      <tr>
-        <td><%= meeting.subject %></td>
-        <td><%= meeting.description %></td>
-        <td><%= date_format(meeting.starts) %></td>
-        <td><%= date_format(meeting.complete) %></td>
-        <td><%= meeting.metting_with %></td>
-        <% if meeting.starts < DateTime.now %>
-          <td><button disabled>Edit</button></td>
-          <td><button disabled>Delete</button></td>
-        <% else %>
-          <td><button><%= link_to "Edit", edit_meeting_path(meeting) %></button></td>
-          <td><%= button_to "Delete", meeting_path(meeting), :method => :delete, data: { turbo_confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+<div class="container mt-5 text-center">
+  <h1>Meeting Dashboard</h1>
+  <%= month_calendar(events: @meetings) do |date, meetings| %>
+    <div class="day">
+      <%= date %>
+    </div>
+    <% meetings.each do |meeting| %>
+      <div class="card-header">
+        <div class="card-title">
+          <%= link_to meeting.subject, meeting_path(meeting) %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-<br><br>
-<%= button_to "Create Meeting", new_meeting_path, :method => :get %><br>
-<%= button_to "Sign Out", session_path(@current_user), :method => :delete %>
+  <% end %>
+  <br><br>
+  <table class="table table-bordered border-primary">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>start_time</th>
+        <th>Complete</th>
+        <th>Meeting With</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @meetings.each do |meeting| %>
+        <tr>
+          <td><%= meeting.subject %></td>
+          <td><%= meeting.description %></td>
+          <td><%= date_format(meeting.start_time) %></td>
+          <td><%= date_format(meeting.complete) %></td>
+          <td><%= meeting.metting_with %></td>
+          <% if meeting.start_time < DateTime.now %>
+            <td><button disabled class="btn btn-success">Edit</button></td>
+            <td><button disabled class="btn btn-danger">Delete</button></td>
+          <% else %>
+            <td><%= link_to "Edit", edit_meeting_path(meeting), class: "btn btn-success" %></td>
+            <td><%= button_to "Delete", meeting_path(meeting), :method => :delete, class: "btn btn-danger", data: { turbo_confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br><br>
+  <%= button_to "Create Meeting", new_meeting_path, :method => :get, class: "btn btn-primary" %><br>
+  <%= button_to "Sign Out", session_path(@current_user), :method => :delete, class: "btn btn-danger" %>
+</div>
 
