@@ -1,8 +1,6 @@
 <h1>Meeting Dashboard</h1>
 <%= month_calendar(events: @meetings) do |date, meetings| %>
-  <div class="day">
-    <%= date %>
-  </div>
+  <%= date %>
   <% meetings.each do |meeting| %>
     <div class="card-header">
       <div class="card-title">

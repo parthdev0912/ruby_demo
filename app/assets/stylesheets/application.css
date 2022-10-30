@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+ .simple-calendar {
+  border: 1px solid #ccc;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+ }
+ .day{
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+ }
+
