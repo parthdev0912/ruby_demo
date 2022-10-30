@@ -1,10 +1,15 @@
 <h1>Edit Meeting Details</h1>
 <%= form_with model: @meeting, url: meeting_path(@meeting), method: "patch" do |form| %>
- <%= form.text_field :subject, placeholder: "Meeting subject ...", value: @meeting.subject %><br><br>
- <%= form.text_field :description, placeholder: "Meeting description ...", value: @meeting.description %><br><br>
- <%= form.datetime_field :start_time, value: @meeting.start_time %><br><br>
- <%= form.datetime_field :complete, value: @meeting.complete %><br><br>
- <%= form.text_field :metting_with, placeholder: "Meeting with ...", value: @meeting.metting_with %><br><br>
- <%= form.submit "Update" %>
- <button><%= link_to "Back", root_path %></button>
+<label>Subject :</label>
+<%= form.text_field :subject, placeholder: "Meeting subject ...", value: @meeting.subject %><br><br>
+<label>Description :</label>
+<%= form.text_field :description, placeholder: "Meeting description ...", value: @meeting.description %><br><br>
+<label>Start Time :</label>
+<%= form.datetime_select :start_time, { ampm: true, order: [:day, :month, :year] }, value: @meeting.start_time %><br><br>
+<label>End Time :</label>
+<%= form.datetime_select :complete, { ampm: true, order: [:day, :month, :year] }, value: @meeting.complete %><br><br>
+<label>Meeting With :</label>
+<%= form.text_field :metting_with, placeholder: "Meeting with ...", value: @meeting.metting_with %><br><br>
+<%= form.submit "Update", class: "btn btn-primary" %>
+<%= link_to "Back", root_path, class: "btn btn-warning" %>
 <% end %>
